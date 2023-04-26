@@ -1,0 +1,15 @@
+The Dockerfile in this repo equal to this command (run by the correct flow, not by the command line by line):
+
+# create container based on ubuntu in port 6789 which using Apache as http server at port 80 run in foreground
+# when running Apache in the foreground, any error messages or status updates are printed to the console
+# so when you come to localhost:6789, it will show apache homepage
+# note: myubuntu here's the image name
+docker run -it -p 6789:80 --name myubuntu ubuntu:latest apache2ctl -D FOREGROUND
+
+# copy file from local machine to the docker image
+# note: myubuntu here's the container name, not image name
+docker cp ./test.html myubuntu:/var/www/html
+
+# install package
+apt-get update
+apt-get install -y apache2
