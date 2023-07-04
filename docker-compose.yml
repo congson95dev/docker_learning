@@ -1,0 +1,60 @@
+version: '3'
+
+# Network
+networks:
+  my-network:
+    driver: bridge
+
+# Volumes:
+volumes:
+  dir-site:
+    driver_opts:
+      device: /home/sonnc/project/docker_learning/sites
+      type: bind
+      o: bind
+
+services:
+  my-php:
+    container_name: php-product
+    build:
+      dockerfile: Dockerfile
+      context: ./php/
+    hostname: php
+    restart: always
+    networks:
+      - my-network
+    volumes:
+      - dir-site:/home/sites/
+    
+  
+  my-apache2:
+    image: httpd:2.4
+    container_name: c-httpd01
+    hostname: httpd
+    restart: always
+    networks:
+      - my-network
+    volumes:
+      - dir-site:/home/sites/
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - "9999:80" # localhost:9999
+      - "443:443"
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-product
+    hostname: mysql
+    restart: always
+    networks:
+      - my-network
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./my.cnf:/etc/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: db_site
+      MYSQL_USER: siteuser
+      MYSQL_PASSWORD: sitepass
+
+  
