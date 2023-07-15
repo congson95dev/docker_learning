@@ -17,6 +17,8 @@ http://localhost:8080/haproxyStats
 ### Whenever you change the `haproxy.cfg` on your local machine, try to remove the image of haproxy builded by `Dockerfile` first, then re-run the `docker compose up -d` command.
 https://stackoverflow.com/a/76610773/8962929
 
+
 ### Don't know why but this url is still doesn't work
 https://testhaproxy2.com:8080/
+
 https://stackoverflow.com/questions/76611018/load-balancing-using-haproxy-does-not-work-for-round-robin
